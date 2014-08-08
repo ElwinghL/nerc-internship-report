@@ -1,0 +1,73 @@
+\section{Methods}
+
+This is where I'll explain the methods used.
+
+\subsection{Taking Photos} % Must be a more technical name for this
+
+\begin{itemize}
+
+\item All zenithal, no oblique; see Section
+    \ref{subsec:results/zenithal-versus-oblique}
+
+\item CHDK script to take photos every 5 seconds
+
+\item CHDK script to allow Mission Planner to take photos and store GPS data in
+log
+
+\end{itemize}
+
+\subsection{Geotagging}
+
+Two main methods:
+
+\subsubsection{Time Offset Method}
+
+This method basically involves telling Mission Planner what the offset between
+the first photo taken and the start of the log recording is. It can guess it for
+you, but you also need to know the difference between the GPS log time and your
+camera time. I should talk about the possible sources of error with this method.
+
+\subsubsection{CAM Dataflash Log Messages}
+
+If you plug your camera into your APM board, you can tell Mission Planner to
+take photos for you. It then stores the GPS data (latitude, longitude, altitude,
+yaw, pitch, roll and time) at the exact moment it told the camera to take the
+photo as a CAM message in the form:
+
+\begin{minted}{python}
+CAM, GPSTime, GPSWeek, Lat, Lng, Alt, Roll, Pitch, Yaw
+\end{minted}
+
+Mission Planner can then be used to geotag the photos using the dataflash log
+containing these CAM messages. This is of course much more accurate than the
+time offset method.
+
+One thing you have to take into account is the camera shutter lag, which I
+calculated\footnote{Using this website:
+\url{http://edwardns.com/shutterlag.html}} to be \SI{90.3 \pm
+32.0}{ms} excluding the autofocus lag and \SI{341.3 \pm
+140.3}{ms} including it.
+
+\subsection{Ground Control Points}
+
+\begin{itemize}
+
+\item Need at least 10 to 15 GCPs before they have their desired effect
+
+\item Distinguishable crosses are used so as to allow you to pinpoint the exact
+centre of the cross.
+
+\item Surveying in the points - equipment used
+
+\end{itemize}
+
+\subsection{Accuracy and Precision Measurements}
+% Should this be in methods, results or a separate theory section?
+
+\subsubsection{Calculating the meters per pixel}
+
+Todo
+
+\subsubsection{Ensuring sufficient photo overlap}
+
+Todo

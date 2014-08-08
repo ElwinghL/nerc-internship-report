@@ -87,3 +87,13 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
+
+# Vim files
+*~
+.*.swp
+
+# LaTeX end files
+*.end
+
+# Produced PDF
+*.pdf
