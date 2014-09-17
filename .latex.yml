@@ -1,0 +1,3 @@
+# For ShareLaTeX CI
+root_file: main.tex
+compiler: pdflatex
