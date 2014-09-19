@@ -1,0 +1,27 @@
+\section{Time Interval CHDK Script}
+\label{app:interval}
+
+The script used to take pictures every 5 seconds is as follows:
+
+\begin{minted}{lua}
+    --[[
+    @title Intervalometer
+    @param a = interval (sec)
+    @default a 5
+    @param b = number of photos
+    @default -1
+    --]]
+    repeat
+        start = get_tick_count()
+        shoot()
+        sleep(a*1000 - (get_tick_count() - start))
+        b = b - 1
+    until (b = 0)
+\end{minted}
+
+This is adapted from the default \texttt{interval.lua} script, packaged with all
+versions of CHDK under the \texttt{SCRIPTS} directory. Note that there are two
+parameters: \texttt{a} is the time interval between successive photos, in
+seconds, which we set to 5, and \texttt{b} is the number of photos to take in
+total. By default, this is set to \texttt{-1}, meaning it will continue taking
+photos indefinitely, however it can be useful to limit the number of photos.
