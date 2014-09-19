@@ -2,20 +2,27 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[version-1-compatibility,load=prefixed]{siunitx}
-\usepackage[caption=false]{subfig}
+\usepackage{subcaption}
 \usepackage{bm}
-\usepackage{todonotes}
 \usepackage{minted}
+\usepackage{datetime}
 
-\graphicspath{{graphs/}{graphics/}}
-\DeclareGraphicsExtensions{.pdf,.eps,.png}
+\graphicspath{{figures/}{images/}}
+\DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg}
 
-\usepackage[hidelinks,
-            pdftex,
-            pdfauthor={Drew Silcock},
-            pdftitle={NERC Summer Placement: Aerial Photogrammetry},
-            pdfsubject={Earth Sciences},
-            ]{hyperref}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks = true,
+    citecolor = purple,
+    linkcolor = purple,
+    urlcolor = blue,
+    pdftex,
+    pdfauthor = { Drew Silcock }
+    pdftitle = { NERC Internship: Aerial Photogrammetry for the Earth
+                 Sciences}
+                 pdfsubject = { Earth Sciences }
+}
 
 % New definition of square root:
 % it renames \sqrt as \oldsqrt
@@ -30,3 +37,6 @@
 
 % For easier integral writing / spacing
 \newcommand{\dd}{\; \mathrm{d}}
+
+% For shorter footnote urls
+\newcommand{\footurl}[1]{\footnote{\url{#1}}}
