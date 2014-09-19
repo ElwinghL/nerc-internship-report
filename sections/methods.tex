@@ -1,48 +1,141 @@
 \section{Methods}
 
-This is where I'll explain the methods used.
+\subsection{Photographic Technique}
+% Must be a more technical name for this - nailed it
 
-\subsection{Taking Photos} % Must be a more technical name for this
+As per the PhotoScan user
+manual\footnote{\url{http://downloads.agisoft.ru/pdf/photoscan-pro_1_0_0_en.pdf}},
+the photos were taken at an oblique angle to the object being modelled (namely
+the ground). This amount to ensuring that the camera is facing down towards the
+ground. This is illustrated in Figure \ref{img:photographic-method}.
 
-\begin{itemize}
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{Incorrect}
+        \label{img:incorrect}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{Correct}
+        \label{img:correct}
+    \end{subfigure}
+    \caption{The incorrect and correct method of taking photos useful for
+        photogrammetric modelling, reproduced from the
+        \href{http://downloads.agisoft.ru/pdf/photoscan-pro\_1\_0\_0\_en.pdf}{Agisoft
+        PhotoScan User Manual, Version 1.0}}
+    \label{img:photographic-method}
+\end{figure}
 
-\item All zenithal, no oblique; see Section
-    \ref{subsec:results/zenithal-versus-oblique}
+\subsection{CHDK Scripts}
 
-\item CHDK script to take photos every 5 seconds
+\subsubsection{Time Interval}
 
-\item CHDK script to allow Mission Planner to take photos and store GPS data in
-log
+The method used predominantly for remote photography is to run a script which
+automatically takes photos after a regular interval specified by the user. The
+Lua script for this can be found in Appendix \ref{app:interval}. To ensure that
+the photos take at regular intervals, we tested the actual time between
+photographs, at different input interval values. The results, illustrated in
+Figure \ref{fig:camera-timing}, show that below 5 seconds the interval is
+unreliable. We therefore used 5 seconds as the standard time interval between
+photos.
 
-\end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{CameraTiming}
+    \caption{The measured averaged time difference between successive photos,
+        plotted against the interval input into the script. 11 photos, giving
+        10 time differences, were taken.}
+    \label{fig:camera-timing}
+\end{figure}
+
+\subsubsection{Pulse Width Modulation Signal}
+
+Although it is not used for this research, CHDK scripts can take advantage of
+the \texttt{get\_usb\_power} function to take input from APM. This utilises
+Pulse Width Modulation (PWM), whereby repeated short digital signals are
+interpreted as different voltages due to their high frequency. The APM autipilot
+send these PWM signals to the camera via a cable, pictured in Figure
+\ref{img:chdk-cable}, where the camera interprets them as different voltages.
+The CHDK script that interprets these voltages, written in UBASIC, is given in
+Appendix \ref{app:pwm}.
+
+Note that the \texttt{Enable Remote} parameter must be enabled under
+\texttt{Settings} $\rightarrow$ \texttt{CHDK Settings} $\rightarrow$
+\texttt{Remote Parameters}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{CHDKCable}
+    \caption{The cable used to connect the camera running CHDK to the APM board.
+        PWM signals are sent through this cable and interpreted by scripts
+        running on the camera}
+    \label{img:chdk-cable}
+\end{figure}
+
+Using the time interval script is in general more practical than taking photos
+through the CHDK cable using PWM. This is because the time interval method is as
+Isimple as strapping the camera to the copter and setting to photographing,
+whereas when using the CHDK cable, one needs to either set APM to take photos at
+every waypoint using MP, which one cannot do when controlling the UAV manually,
+or assign the camera `shoot' functionality to a button on the radio control
+system, in which case one needs to press this button every few seconds.
 
 \subsection{Geotagging}
+\label{sec:methods/geotagging}
 
-Two main methods:
+In order to increase the accuracy and precision of the camera location in the
+photogrammetry software, and thereby the accuracy and precision of the final
+model, the photos are tagged with their location by using the UAV's on-board
+Global Positioning System (GPS). The geolocation is written either into a
+separate comma separated value (CSV) file, or is written directly into the exif
+metadata of the photos themselves. Either can be imported into PhotoScan. The
+technique used to determine the location of the photographs depends on whether
+the photographs were taken using the time interval script or as controlled by
+the APM autopilot.
 
 \subsubsection{Time Offset Method}
 
-This method basically involves telling Mission Planner what the offset between
-the first photo taken and the start of the log recording is. It can guess it for
-you, but you also need to know the difference between the GPS log time and your
-camera time. I should talk about the possible sources of error with this method.
+If the camera is set to automatically take pictures every 5 seconds, then one
+needs to know the difference between the internally logged time on the camera,
+stamped onto the photographs' exif metadata by the camera automatically, and the
+GPS time on the UAV. As the UAV constantly takes logs of its GPS location and
+the time, knowing the time difference between camera and GPS is sufficient to
+determine the location of each of the photos. Inputting the log, photographs and
+time difference into MP, MP automatically geotags the photos to be imported into
+PhotoScan.
+
+In order to find this time difference, a photograph of MP while connected
+directly by USB to the APM, as illustrated in Figure \ref{img:mission-planner},
+is taken. As the UAV GPS time is displayed on the MP screen, and the camera logs
+the time it takes the photograph, comparing the exif time stamp to the GPS time
+recorded in the photo itself gives the time difference.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{MissionPlanner}
+    \caption{A photograph taken of MP while connected directly to the APM,
+        giving the offset between the camera time and the UAV GPS time.}
+    \label{img:mission-planner}
+\end{figure}
 
 \subsubsection{CAM Dataflash Log Messages}
 
-If you plug your camera into your APM board, you can tell Mission Planner to
-take photos for you. It then stores the GPS data (latitude, longitude, altitude,
-yaw, pitch, roll and time) at the exact moment it told the camera to take the
-photo as a CAM message in the form:
+If using the UBASIC CHDK script given in Appendix \ref{app:pwm} to allow APM to
+remotely trigger camera shooting, then the GPS time, location, altitude, roll,
+pitch and yaw are all logged by APM. A line will appear in the dataflash log of
+the form:
 
 \begin{minted}{python}
 CAM, GPSTime, GPSWeek, Lat, Lng, Alt, Roll, Pitch, Yaw
 \end{minted}
 
-Mission Planner can then be used to geotag the photos using the dataflash log
-containing these CAM messages. This is of course much more accurate than the
-time offset method.
+Geotagging the photos using the CAM messages embedded in the dataflash logs is
+the more accurate method, as there are no uncertainties introduced by the time
+logged by the camera. 
 
-One thing you have to take into account is the camera shutter lag, which I
+\subsubsection{Shutter Lag}
+
+One thing one must take into account is the camera shutter lag, which I
 calculated\footnote{Using this website:
 \url{http://edwardns.com/shutterlag.html}} to be \SI{90.3 \pm
 32.0}{ms} excluding the autofocus lag and \SI{341.3 \pm
