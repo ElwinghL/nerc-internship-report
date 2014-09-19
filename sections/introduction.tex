@@ -1,6 +1,9 @@
 \section{Introduction}
 
-This is where I'll introduce things.
+The aim of this project is to investigate the practical use of photogrammetry,
+with a focus of its applications to the Earth Sciences. It covers the methods
+used to gain photogrammetric data and analyses some results taken from
+fieldwork.
 
 \subsection{How photogrammetry works}
 
@@ -8,13 +11,71 @@ Use this site: \url{http://www.mat.uc.pt/~gil/downloads/IntroPhoto.pdf}
 
 Introduction to and mathematical foundations thereof.
 
+\subsection{Unmanned Aerial Vehicles}
+
+To gain the photographs and geopositioning data for the photogrammetric
+reconstruction, we employ the use of Unmanned Aerial Vehicles (UAV). To this
+end, the ArduPilot Mega (APM)\footnote{\url{http://www.ardupilot.co.uk/}}
+autopilot on-flight hardware and firmware is used.  Although a quadcopter,
+pictured in Figure \ref{img:pinkie}, is the focus of the research, data was also
+taken with a hexacopter.
+
+%\begin{figure}
+%    \includegraphics[width=\textwidth]{Pinkie}
+%    \caption{The pink quadcopter, ``Pinkie'', used for data gathering and
+%    experiments alongside a larger hexacopter.}
+%    \label{img:pinkie}
+%\end{figure}
+
 \subsection{Software Used}
 
 \subsubsection{Mission Planner}
-% Is it worth putting in a small subsubsection about Mission Planner?
 
-For use with APM boards.
+Mission Planner\footnote{\url{http://planner.ardupilot.com}} was used to
+interact with and give commands to the APM autopilot. In particular the
+\texttt{survey grid} option, used to guide the UAV in a regular grid pattern, is
+useful for achieving successful photos for modelling. In addition, Mission
+Planner is used to geotag the photos. This is discussed in more detail in
+\ref{sec:methods/geotagging}.
 
 \subsubsection{Agisoft PhotoScan}
 
-Structure from motion, now for only \$5000.
+The Agisoft PhotoScan Professional Edition
+software\footnote{\url{http://www.agisoft.ru/products/photoscan/professional/}}
+software is used to perform the photogrammetric reconstruction. The workflow is
+as follows:
+
+\begin{description}
+    \item[Load Photos] Firstly, the photos are loaded in PhotoScan.
+    \item[Load Camera Positions] Then, the camera geotagging data are loaded,
+        either through importing the photo exif metadata, or through a separate
+        comma separated value file.
+    \item[Align Photos] The camera positions are then used to refine the camera
+        position and build a sparse point cloud.
+    \item[Place Ground Control Points] Next a mesh is generated and the GCPs are
+        input into PhotoScan.
+    \item[Optimise alignment] The camera alignment is then optimised using the
+        GCP data.
+    \item[Build Dense Point Cloud] PhotoScan subsequently builds a dense point
+        cloud from the sparse point cloud.
+    \item[Build Mesh] Penultimately, the mesh is built by joining the dense
+        point cloud into a smooth model.
+    \item[Build Texture] Finally, the mesh is overlaid with a texture, finished
+        the photogrammetric reconstruction.
+\end{description}
+
+Once this workflow is accomplished, the resulting model can be exported as an
+orthophoto, whereby the original photos are stitched together into a single
+aerial image, and as a Digital Elevation Model (DEM), which contains all the
+information about the topography of the model. It is this DEM that is of
+application to Earth Science research.
+
+\subsubsection{Canon Hack Development Kit}
+
+In order to control the camera remotely, we employed the Canon Hack Development
+Kit (CHDK)\footnote{\url{http://chdk.wikia.com/}}. Specifically, we used
+firmware version 1.00B Alpha for the Powershot
+IXUS132\footurl{http://chdk.wikia.com/wiki/ELPH115}, loaded by a bootable SD
+card. This allows one to run scripts on the camera, written in either Lua or
+UBASIC, that interface with the camera mechanism, e.g. taking pictures, zooming,
+turning off etc. This allowed us control over the camera during the flights.
