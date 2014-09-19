@@ -97,3 +97,6 @@ sympy-plots-for-*.tex/
 
 # LaTeXMK refresh file
 .refresh
+
+# Ignore main produces file
+main.pdf
