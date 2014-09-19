@@ -95,5 +95,5 @@ sympy-plots-for-*.tex/
 # LaTeX end files
 *.end
 
-# Produced PDF
-*.pdf
+# LaTeXMK refresh file
+.refresh
