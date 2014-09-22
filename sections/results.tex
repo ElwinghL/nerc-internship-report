@@ -1,30 +1,42 @@
 \section{Results}
 
-This is where I'll state and compare the results form my experiments.
+Two sets of data were taken, and are examined here in terms of the accuracy of
+their produced models and the possible causes of error in the reconstruction
+process. The first set of photographs were taken at Long Ashton Farm outside
+Bristol, and the second set were taken at the Avon Gorge in Bristol.
 
-\subsection{Zenithal versus Oblique}
-\label{sec:results/zenithal-versus-oblique}
+\subsection{Long Ashton}
 
-Practical comparison of the difference between Avon Gorge models built using
-zenithal (Pass 1) and oblique (Pass 2) photos, including their accuracy, error,
-precision and general visual fidelity.
+For this data set, a hexacopter was used to gather a total of 63 aerial images.
+The time interval technique was used to take the photos, and the time offset
+method used to geotag the resulting photos.
 
-\subsection{Geotagging Accuracy}
+\subsubsection{Without GCPs}
 
-\begin{itemize}
+Firstly, the reconstruction was run without the Ground Control Points input, and
+without any photographic alignment optimisation. The resulting orthophoto is
+shown in Figure \ref{img:long-ashton/no-gcp/orthophoto}, while the DEM is shown
+in Figure \ref{img:long-ashton/no-gcp/dem}.
 
-    \item Measurement of accuracy of time offset method (with reference to
-        PhotoScan generated report statistics).
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=0.5\textwidth]{LongAshtonNoGCPOrthophoto}
+        \caption{The generated orthophoto for the Long Ashton data set, without
+        GCPs input.}
+        \label{img:long-ashton/no-gcp/orthophoto}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=0.5\textwidth]{LongAshtonNoGCPDEM}
+        \caption{The generated DEM for the Long Ashton data set, without GCPs
+        input.}
+        \label{img:long-ashton/no-gcp/dem}
+    \end{subfigure}
+\end{figure}
 
-    \item Measurement of accuracy of CAM log method (if possible, with reference
-        to PhotoScan generated report statistics).
+\subsection{Avon Gorge}
 
-    \item Comparison of relative accuracy of time offset and CAM log methods (if
-        possible).
-
-\end{itemize}
-
-\subsubsection{Ground Control Point Accuracy}
+\subsection{Ground Control Point Accuracy}
 
 Which GCPs produced the biggest errors and why. Sources of stated errors in
 PhotoScan generated report.
