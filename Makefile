@@ -4,7 +4,7 @@ LATEXOPT=-shell-escape
 
 MAIN=main
 SOURCES=$(MAIN).tex Makefile preamble.tex sections/* appendices/*
-FIGURES := $(shell ls figures/* images/*)
+FIGURES := $(shell find figures/* images/* -type f)
 
 all:	$(MAIN).pdf
 
