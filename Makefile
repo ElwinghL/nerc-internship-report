@@ -1,6 +1,7 @@
 LATEX=pdflatex
+LATEXOPT=-shell-escape -interaction=nonstopmode
 LATEXMK=latexmk
-LATEXOPT=-shell-escape
+LATEXMKOPT=-pvc -pdf
 
 MAIN=main
 SOURCES=$(MAIN).tex Makefile preamble.tex sections/* appendices/*
@@ -12,7 +13,7 @@ all:	$(MAIN).pdf
 	touch .refresh
 
 $(MAIN).pdf: $(MAIN).tex .refresh $(SOURCES) $(FIGURES)
-	$(LATEXMK) -pdf -pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN).tex
+	$(LATEXMK) $(LATEXMKOPT) -pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN).tex
 
 force:
 	touch .refresh
