@@ -12,29 +12,68 @@ The time interval technique was used to take the photos, and the time offset
 method used to geotag the resulting photos.
 
 \subsubsection{Without GCPs}
+\label{sec:results/long-ashton/no-gcp}
 
 Firstly, the reconstruction was run without the Ground Control Points input, and
 without any photographic alignment optimisation. The resulting orthophoto is
 shown in Figure \ref{img:long-ashton/no-gcp/orthophoto}, while the DEM is shown
-in Figure \ref{img:long-ashton/no-gcp/dem}.
+in Figure \ref{img:long-ashton/no-gcp/dem} and the photographic overlap is shown
+in Figure \ref{img:long-ashton/no-gcp/overlap}. The produced model is available
+to view interactively online at
+\url{https://sketchfab.com/models/ad8a1d9f8c324eb592a9e4beabc5a51e}.
 
 \begin{figure}
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics[width=0.5\textwidth]{LongAshtonNoGCPOrthophoto}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{LongAshtonNoGCPOrthophoto}
         \caption{The generated orthophoto for the Long Ashton data set, without
         GCPs input.}
         \label{img:long-ashton/no-gcp/orthophoto}
     \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
-        \includegraphics[width=0.5\textwidth]{LongAshtonNoGCPDEM}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{LongAshtonNoGCPDEM}
         \caption{The generated DEM for the Long Ashton data set, without GCPs
         input.}
         \label{img:long-ashton/no-gcp/dem}
     \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{LongAshtonNoGCPOverlap}
+        \caption{The calculated photographic overlap achieved in the Long Ashton
+        photo dataset.}
+        \label{img:long-ashton/no-gcp/overlap}
+    \end{subfigure}
+    \caption{The data produced by PhotoScan from the Long Ashton aerial imagery,
+    without factoring in GCPs.}
+    \label{img:long-ashton/no-gcp}
 \end{figure}
 
+Clearly, the orthophoto shows that the 63 photos were sufficient to build a
+model of the topography of the area. However, the Digital Elevation Model shows
+that the photogrammetric reconstruction interpreted the topography as on a
+significant tilt head from the car park up to the building. We hypothesise that
+this tilt is due to the lack of GCPs to correct for such systematic errors. This
+is discussed with reference to the model produced \textit{with} GCPs in Section
+\ref{sec:results/long-ashton/gpcs}
+
+DEM and model accuracy.
+
+Good overlap.
+
+\subsubsection{With GCPs}
+\label{sec:results/long-ashton/gcps}
+
+The reconstruction was then rerun with a limited number of Ground Control Points
+input. These GCPs were taken using distinguishable features from the landscape
+and their geolocation found from Google Earth to test the effect they would have
+on the resulting model and DEM. The first DEM was taken as the centre of a pond,
+the second the corner of a fence and the third
+
 \subsection{Avon Gorge}
+
+This model was reconstructed from two passes of 87 and 61 photos. As before, the
+time interval with time offset techniques were used for taking photos and
+geotagging the photos, respectively. The photos were taken by attaching the
+camera to the quadcopter and 
 
 \subsection{Ground Control Point Accuracy}
 
