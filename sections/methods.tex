@@ -9,7 +9,7 @@ photos were taken at an oblique angle to the object being modelled (namely the
 ground). This amount to ensuring that the camera is facing down towards the
 ground. This is illustrated in Figure \ref{img:photographic-method}.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{Incorrect}
@@ -39,14 +39,14 @@ Figure \ref{fig:camera-timing}, show that below 5 seconds the interval is
 unreliable. We therefore used 5 seconds as the standard time interval between
 photos.
 
-\begin{figure}
+\begin{wrapfigure}{r}{0.5\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{CameraTiming}
+    \includegraphics[width=0.5\textwidth]{CameraTiming}
     \caption{The measured averaged time difference between successive photos,
         plotted against the interval input into the script. 11 photos, giving
         10 time differences, were taken.}
     \label{fig:camera-timing}
-\end{figure}
+\end{wrapfigure}
 
 \subsubsection{Pulse Width Modulation Signal}
 
@@ -63,14 +63,15 @@ Note that the \texttt{Enable Remote} parameter must be enabled under
 \texttt{Settings} $\rightarrow$ \texttt{CHDK Settings} $\rightarrow$
 \texttt{Remote Parameters}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{CHDKCable}
-    \caption{The cable used to connect the camera running CHDK to the APM board.
-        PWM signals are sent through this cable and interpreted by scripts
-        running on the camera}
-    \label{img:chdk-cable}
-\end{figure}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{CHDKCable}
+        \caption{The cable used to connect the camera running CHDK to the APM board.
+            PWM signals are sent through this cable and interpreted by scripts
+            running on the camera}
+        \label{img:chdk-cable}
+    \end{center}
+\end{wrapfigure}
 
 Using the time interval script is in general more practical than taking photos
 through the CHDK cable using PWM. This is because the time interval method is as
@@ -110,13 +111,14 @@ is taken. As the UAV GPS time is displayed on the MP screen, and the camera logs
 the time it takes the photograph, comparing the exif time stamp to the GPS time
 recorded in the photo itself gives the time difference.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{MissionPlanner}
-    \caption{A photograph taken of MP while connected directly to the APM,
-        giving the offset between the camera time and the UAV GPS time.}
-    \label{img:mission-planner}
-\end{figure}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{MissionPlanner}
+        \caption{A photograph taken of MP while connected directly to the APM,
+            giving the offset between the camera time and the UAV GPS time.}
+        \label{img:mission-planner}
+    \end{center}
+\end{wrapfigure}
 
 \subsubsection{CAM Dataflash Log Messages}
 
@@ -135,32 +137,53 @@ logged by the camera.
 
 \subsubsection{Shutter Lag}
 
-Regardless of the technique used to geotag the photos, the lag between the
-instruction to shoot and the photograph being actually taken, induced by shutter
-lag, can cause systematic errors in the geotagging. To quantify this, we
-analysed the shutter lag of the Powershot IXUS132 we are using. This involved
-taking a photo of a timer\footurl{http://edwardns.com/shutterlag.html} exactly
-on the second, and noting the time shown in the photograph. We calculated the
-shutter lag to be \sipm{90.3}{32.0}{ms}
-
-One thing one must take into account is the camera shutter lag, which I
-calculated\footnote{Using this website:
-\url{http://edwardns.com/shutterlag.html}} to be \SI{90.3 \pm
-32.0}{ms} excluding the autofocus lag and \SI{341.3 \pm
-140.3}{ms} includin
+If using the CAM message method, the lag between the instruction to shoot and
+the photograph being actually taken, induced by shutter lag, can cause
+systematic errors in the geotagging and must be measured so that it can be taken
+into account. To quantify this, we analysed the shutter lag of the Powershot
+IXUS132 we are using. This involved taking a photo of a
+timer\footurl{http://edwardns.com/shutterlag.html} exactly on the second, and
+noting the time shown in the photograph. We calculated the shutter lag to be
+\sipm{90.3}{32.0}{ms} excluding the autofocus lag, and \sipm{341}{140.3}{ms}
+including the autofocus lag. As the camera is not set to autofocus using this
+method of remote photography, the former value is taken as the value of
+interest. As the GPS logs are made only at a frequency of \SI{5}{Hz} (or one
+every \SI{200}{ms})\footnote{As per
+\url{http://copter.ardupilot.com/wiki/common-geotagging-images-with-mission-planner/\#Geotag_Mode}
+and \url{https://store.3drobotics.com/products/3dr-gps-ublox-with-compass}}, the
+shutter lag is rounded to the nearest \SI{200}{ms} and taken as zero.
 
 \subsection{Ground Control Points}
 
-\begin{itemize}
+To enhance the accuracy and precision of the reconstructions, we employed Ground
+Control Points (GCPs). These are strategically placed markers, the exact
+location of which are surveyed and subsequently input into PhotoScan. Then, in
+PhotoScan, after the cameras are aligned, inputting the GCPs as markers and
+giving their geolocation (either preferably as WGS or possibly also as local
+coordinates) allows one to optimise the alignment of the cameras, producing a
+more accurate dense point cloud and therefore textured model.
 
-\item Need at least 10 to 15 GCPs before they have their desired effect
+Distinguishable points such as dark crosses are preferable, as they are easier
+to pick out on photos when creating markers in PhotoScan, and easier for
+PhotoScan to analyse and pick out the location of in each picture. I particular
+crosses are effective as the exact location of the marker can be precisely set
+to the centre of the cross.
 
-\item Distinguishable crosses are used so as to allow you to pinpoint the exact
-centre of the cross.
+As per the PhotoScan
+website\footurl{http://www.agisoft.ru/wiki/PhotoScan/Tips\_and\_Tricks\#Ground\_Control},
+roughly 10 GCPs are required for the completion of the georeferencing, while 15
+or more GCPs are preferable for improved accuracy.
 
-\item Surveying in the points - equipment used
+The laser-based surveying equipment used to identify the GCPs is shown in Figure
+\ref{img:gcp-equipment}.
 
-\end{itemize}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{GCPEquipment}
+        \caption{The equipment used to survey in Ground Control Points.}
+        \label{img:gcp-equipment}
+    \end{center}
+\end{wrapfigure}
 
 \subsection{Accuracy and Precision Measurements}
 % Should this be in methods, results or a separate theory section?
@@ -172,5 +195,3 @@ Todo
 \subsubsection{Ensuring sufficient photo overlap}
 
 Todo
-
-\cite{Example}
