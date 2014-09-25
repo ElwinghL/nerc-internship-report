@@ -6,50 +6,7 @@ using PWM is shown below. It is taken directly from the APM wiki page on CHDK
 camera
 control\footurl{http://plane.ardupilot.com/wiki/common-chdk-camera-control-tutorial/}.
 
-\begin{minted}{vb.net}
-@title 3DR Shooter
-rem author Brandon Basso, 3D Robotics
-rem author Dave Mitchell - dave@zenoshrdlu.com
-rem This script is based on the basic Gentled CHDK2 script
-rem It takes pictures and sets zooms to a few different levels
-
-@param o Zoom-extended
-@default o 100
-@param i Zoom-stowed
-@default i 30
-@param s Zoom-shoot
-@default s 10
-
-while 1
-   do
-      k = get_usb_power
-   until k\textmore0
-   if k \textless 5 then gosub "ch1up" 
-   if k \textmore 4 and k \textless 8 then gosub "ch1mid" 
-   if k \textmore 7 and k \textless 11 then gosub "ch1down" 
-   if k \textmore 19 then print "error"
-wend
-end
-
-:ch1up
-   print "Ch1Up-Shoot"; k
-   set_zoom s
-   shoot
-   sleep 1000
-   return
-
-:ch1mid
-   print "Ch1Mid-Stowed"; k
-   set_zoom i
-   sleep 1000
-   return
-
-:ch1down
-   print "Ch1Down-Extended"; k
-   set_zoom o
-   sleep 1000
-   return
-\end{minted}
+\inputminted{vb.net}{code/3DR_Shoot.bas}
 
 The variable \texttt{k}, set equal to the current power going into the camera
 through the USB port, corresponds to different pulse widths as given by Table
