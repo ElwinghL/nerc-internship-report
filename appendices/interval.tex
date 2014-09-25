@@ -3,21 +3,7 @@
 
 The script used to take pictures every 5 seconds is as follows:
 
-\begin{minted}{lua}
-    --[[
-    @title Intervalometer
-    @param a = interval (sec)
-    @default a 5
-    @param b = number of photos
-    @default -1
-    --]]
-    repeat
-        start = get_tick_count()
-        shoot()
-        sleep(a*1000 - (get_tick_count() - start))
-        b = b - 1
-    until (b = 0)
-\end{minted}
+\inputminted{lua}{code/number-interval.lua}
 
 This is adapted from the default \texttt{interval.lua} script, packaged with all
 versions of CHDK under the \texttt{SCRIPTS} directory. Note that there are two
