@@ -43,12 +43,3 @@ end
    set_zoom o
    sleep 1000
    return
-
-:ch2up
-   return
-
-:ch2mid
-   return
-	
-:ch2down
-   return
