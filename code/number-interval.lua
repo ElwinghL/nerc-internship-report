@@ -10,6 +10,5 @@ repeat
 	shoot()
     sleep(a*1000 - (get_tick_count() - start))
     b = b - 1
-until ( b = 0)
-
+until (b = 0)
 
