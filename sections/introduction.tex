@@ -7,25 +7,25 @@ fieldwork.
 
 \subsection{How photogrammetry works}
 
-Use this site: \url{http://www.mat.uc.pt/~gil/downloads/IntroPhoto.pdf}
-
-Introduction to and mathematical foundations thereof.
+The basic principle of photogrammetry is the same mechanism by which the eyes
+infer distance: triangulation. By moving around an object, or parallel to a
+façade, one can infer the distance to the object by a simple trigonometric
+calculation, as demonstrated in Figure \ref{fig:triangulation}. By leveraging
+this simple trigonometric distance calculation, one can infer from the group of
+photos of the same object, taken using the appropriate method as described in
+Section \ref{sec:methods/photographic-technique}, the distance to any point in
+the photos, and thus built up a three dimensional model of the captured objects.
+Importantly, this can be achieved without need for explicitly inputting the
+location that the photographs were taken, although it does increase the accuracy
+of the resulting model, as discussed in Section \ref{sec:methods/geotagging}.
 
 \subsection{Unmanned Aerial Vehicles}
 
 To gain the photographs and geopositioning data for the photogrammetric
 reconstruction, we employ the use of Unmanned Aerial Vehicles (UAV). To this
 end, the ArduPilot Mega (APM)\footurl{http://www.ardupilot.co.uk/} autopilot
-on-flight hardware and firmware is used.  Although a quadcopter, pictured in
-Figure \ref{img:pinkie}, is the focus of the research, data was also taken with
-a hexacopter.
-
-%\begin{figure}
-%    \includegraphics[width=\textwidth]{Pinkie}
-%    \caption{The pink quadcopter, ``Pinkie'', used for data gathering and
-%    experiments alongside a larger hexacopter.}
-%    \label{img:pinkie}
-%\end{figure}
+on-flight hardware and firmware is used.  Although a quadcopter is the focus of
+the research, data was also taken with a hexacopter.
 
 \subsection{Software Used}
 
