@@ -69,7 +69,11 @@ The reconstruction was then rerun with a limited number of Ground Control Points
 input. These GCPs were taken using distinguishable features from the landscape
 and their geolocation found from Google Earth to test the effect they would have
 on the resulting model and DEM. The first DEM was taken as the centre of a pond,
-the second the corner of a fence and the third
+the second the corner of a fence and the third was a cross marked in with white
+tape, whose location was approximated by referencing nearby features on Google
+Maps. While this is not sufficiently accurate for a true georeference, it
+suffices to demonstrate that the tilt is removed from the final model once the
+GCPs are introduced.
 
 \begin{figure}
     \centering
@@ -101,8 +105,20 @@ the second the corner of a fence and the third
     \label{img:long-ashton/with-gcps}
 \end{figure}
 
+Figure \ref{img:long-ashton/with-gcps/dem} shows the DEM with these 3 GCPs
+introduced into the photogrammetric alignment process. Clearly, the model is no
+longer considering on a slope, as it was in Figure
+\ref{img:long-ashton/no-gcps/dem}. However, the previously vertical faces are
+now tilted themselves, meaning that the wall of the warehouse is not vertically
+up, but a tilted slope up to the roof. We argue that this is an artefact of the
+small number of GCPs used trying to georeference the model. If the minimum
+number of 10 GCPs or more were used, then the software would correctly
+georeference the model and the sloped walls would be corrected. Section
+\ref{sec:results/avon-gorge/no-gcps} and \ref{sec:results/avon-gorge/with-gcps}
+discusses this further with reference to the Avon Gorge photo set, which
+contained more than the required number of GCPs.
+
 \textbf{Todo: DEM and model accuracy} \\
-\textbf{Todo: Talk about the slope} \\
 
 \subsection{Avon Gorge}
 \label{sec:results/avon-gorge}
@@ -115,7 +131,8 @@ photographs of the cliff face that is the Avon-Gorge. The purpose of this was to
 give useful photos equivalent to aerial photogrammetry before the quadcopter was
 ready to fly.
 
-\subsubsection{First Versus Second Pass}
+\subsubsection{First Pass Versus Second Pass}
+\label{sec:results/avon-gorge/passes}
 
 The first pass was taken facing the gorge horizontally on, thereby fully
 representing an equivalent to aerial photogrammetry. The second pass was at an
@@ -158,6 +175,24 @@ problem to a limited extent, but the former remains, as shown in Figure
 \end{figure}
 
 \subsubsection{Without GCPs}
+\label{sec:results/avon-gorge/no-gcps}
+
+When the first pass is taken with no GCPs input, there are several important
+emergent features to note.
+
+Firstly, as Figure \ref{img:avon-gorge/no-gcps/caeras} shows, the calculated
+locations of the cameras was very inaccurate, with some errors extending beyond
+the model. This is because the geolocation of the photos from the on-board UAV
+GPS is simply not accurate enough to be the only method of georeferencing; the
+GCPs are also needed in addition to the geotagged photo locations.
+
+Secondly, as Figure \ref{img:avon-gorge/no-gcps/dem} shows, the reconstruction
+has also incorrectly interpreted the landscape as being on a tilt, with the
+north of the gorge (top of the image) appearing higher than the south of the
+gorge (bottom of the image). The systematic sloping that these reconstructions
+seem to exhibit is a strange if irrelevant phenomenon (so long as a sufficient
+number of GCPs are provided), possibly caused by the camera being tilted as it
+is attached to the UAVs.
 
 \begin{figure}
     \centering
@@ -189,12 +224,24 @@ problem to a limited extent, but the former remains, as shown in Figure
     \label{img:avon-gorge/no-gcps}
 \end{figure}
 
-\textbf{Todo: Mention a slope again, and possible cause} \\
 \textbf{Todo: Mention accuracy} \\
-\textbf{Todo: Talk about inaccuracy in camera placement, and how this shows how
-useful GCPs are} \\
 
 \subsubsection{With GCPs}
+\label{sec:results/avon-gorge/with-gcps}
+
+Once the GCPs are input, there are several important effects.
+
+The photographic overlap of the gorge increases, with only the very corners
+having less than 9 overlapped photos covering it. With more accurate
+georeferencing, the software recognises the photos as taken more spread apart,
+and thus with better coverage of the corners of the model.
+
+The tilt present in Figure \ref{img:avon-gorge/no-gcps/dem} disappears, as shown
+in Figure \ref{img:avon-gorge/with-gcps/dem}. The produced model now correctly
+identifies the bottom of the gorge as level. This indicates that the slopes
+present in the Avon Gorge and Long Ashton models are merely artefacts of the
+lack of GCPs, which, when the sufficient number of GCPs are introduced,
+disappears.
 
 \begin{figure}
     \centering
@@ -226,5 +273,4 @@ useful GCPs are} \\
     \label{img:avon-gorge/with-gcps}
 \end{figure}
 
-\textbf{Todo: Show how slope has resolved itself with GCPs} \\
 \textbf{Todo: Compare accuracy to no GCPs and to Long Ashton} \\

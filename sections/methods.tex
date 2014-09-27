@@ -1,6 +1,7 @@
 \section{Methods}
 
 \subsection{Photographic Technique}
+\label{sec:methods/photographic-technique}
 
 As per the PhotoScan user
 manual\footurl{http://downloads.agisoft.ru/pdf/photoscan-pro_1_0_0_en.pdf}, the
@@ -28,7 +29,15 @@ ground. This is illustrated in Figure \ref{img:photographic-method}.
 \subsection{Masking}
 \label{sec:methods/masking}
 
-\textbf{Todo: Explain what masking it, how it works and why it's used}
+Occasionally, background or foreground items obstruct the view of the object
+that one wishes to model, causing error. In these cases, the offending back- or
+fore-ground objects must be masked out. This means that the photos are
+individually edited to indicate that part of the photo is not part of the object
+to be modelled, and should be ignored by PhotoScan when reconstructing the
+model. A commonly masked element of photographs in photogrammetry is the sky, as
+is visually shown in Section \ref{sec:results/avon-gorge/passes} and Figure
+\ref{img:avon-gorge/passes}. Without masking, the software attempts to integrate
+the sky into the object being modelled, causing significant error.
 
 \subsection{CHDK Scripts}
 
