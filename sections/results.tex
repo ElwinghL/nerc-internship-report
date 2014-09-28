@@ -135,8 +135,13 @@ represents the root means square reprojection error calculated over all features
 points detected on the photo. Thus, a possible source of the error is that
 without the GCPs, the software in unaware of the systematic error demonstrated
 by the sloped DEM. When the GCPs are introduced, the software realises that the
-systematic error is there, and the value of the reprojection error is increase
-accordingly.
+systematic error is there, and the value of the reprojection error is increased
+accordingly. Even though the GCP georeferenced model has a slightly larger
+error, it still corresponds to a very small distance of \SI{0.155}{mm}. This
+value is too small to be a realistic value, indicating that the GCPs have not
+sufficiently corrected the model to its true value for the error present in the
+model to be recognised and reported by PhotoScan. This is supported by the
+comparison in Section \ref{sec:results/avon-gorge/with-gcps}.
 
 \begin{table}
     \begin{tabular}{| l | c | c |}
@@ -314,7 +319,15 @@ different value of the flying altitude inferred from the software.
 
 The difference in reprojection error is more pronounced here, which could be
 explained by the higher number of GCPs; with the model fully accurately
-georeferenced, the errors in the reprojection are \textbf{Todo: Finish}
+georeferenced, the errors in the reprojection are fully realised and reported by
+PhotoScan, meaning that the reported error is higher. It's important to note
+that, as before, even the higher value of the error for the GCP georeferenced
+model, which corresponds to a value in meters of \SI{1.24}{cm}, is well within
+an acceptable range. The fact that this value is also realistic indicates that
+the previously unrealistically small error in Section
+\ref{sec:results/long-ashton/with-gcps} was indeed a result of not having enough
+GCPs to properly georeference the model, thereby resulting in PhotoScan not
+fully recognising the error present in the model.
 
 \begin{table}
     \begin{tabular}{| l | c | c |}
