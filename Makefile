@@ -19,10 +19,13 @@ force:
 	touch .refresh
 	$(MAKE) $(MAIN).pdf
 
-.PHONY: clean force all
-
 clean:
 	$(LATEXMK) -C $(MAIN).tex
 	rm -f $(MAIN).pdfsync
 	rm -rf *~ *.tmp
 	rm -f *.bbl *.blg *.aux *.end *.fls *.log *.out *.fdb_latexmk
+
+once:
+	$(LATEX) $(LATEXOPT) $(MAIN)
+
+.PHONY: clean force once all
