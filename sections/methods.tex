@@ -77,13 +77,13 @@ Note that the \texttt{Enable Remote} parameter must be enabled under
 \texttt{Remote Parameters}.
 
 \begin{wrapfigure}{r}{0.5\textwidth}
-    \begin{center}
-        \includegraphics[width=0.5\textwidth]{CHDKCable}
-        \caption{The cable used to connect the camera running CHDK to the APM board.
-            PWM signals are sent through this cable and interpreted by scripts
-            running on the camera}
-        \label{img:chdk-cable}
-    \end{center}
+    \centering
+    \includegraphics[width=0.5\textwidth]{CHDKCable}
+    \caption{The cable used to connect the camera running CHDK to the APM board.
+        PWM signals are sent through this cable and interpreted by scripts
+        running on the camera}
+    \label{img:chdk-cable}
+    \vspace{-25pt}
 \end{wrapfigure}
 
 Using the time interval script is in general more practical than taking photos
@@ -109,6 +109,14 @@ the APM autopilot.
 
 \subsubsection{Time Offset Method}
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{MissionPlanner}
+    \caption{A photograph taken of MP while connected directly to the APM,
+        giving the offset between the camera time and the UAV GPS time.}
+    \label{img:mission-planner}
+\end{wrapfigure}
+
 If the camera is set to automatically take pictures every 5 seconds, then one
 needs to know the difference between the internally logged time on the camera,
 stamped onto the photographs' exif metadata by the camera automatically, and the
@@ -124,15 +132,6 @@ is taken. As the UAV GPS time is displayed on the MP screen, and the camera logs
 the time it takes the photograph, comparing the exif time stamp to the GPS time
 recorded in the photo itself gives the time difference.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-    \begin{center}
-        \includegraphics[width=0.5\textwidth]{MissionPlanner}
-        \caption{A photograph taken of MP while connected directly to the APM,
-            giving the offset between the camera time and the UAV GPS time.}
-        \label{img:mission-planner}
-    \end{center}
-\end{wrapfigure}
-
 \subsubsection{CAM Dataflash Log Messages}
 
 If using the UBASIC CHDK script given in Appendix \ref{app:pwm} to allow APM to
@@ -146,7 +145,7 @@ CAM, GPSTime, GPSWeek, Lat, Lng, Alt, Roll, Pitch, Yaw
 
 Geotagging the photos using the CAM messages embedded in the dataflash logs is
 the more accurate method, as there are no uncertainties introduced by the time
-logged by the camera. 
+logged by the camera.
 
 \subsubsection{Shutter Lag}
 
@@ -167,6 +166,13 @@ and \url{https://store.3drobotics.com/products/3dr-gps-ublox-with-compass}}, the
 shutter lag is rounded to the nearest \SI{200}{ms} and taken as zero.
 
 \subsection{Ground Control Points}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.5\textwidth]{GCPEquipment}
+    \caption{The equipment used to survey in Ground Control Points.}
+    \label{img:gcp-equipment}
+\end{wrapfigure}
 
 To enhance the accuracy and precision of the reconstructions, we employed Ground
 Control Points (GCPs). These are strategically placed markers, the exact
@@ -189,11 +195,3 @@ or more GCPs are preferable for improved accuracy.
 
 The laser-based surveying equipment used to identify the GCPs is shown in Figure
 \ref{img:gcp-equipment}.
-
-\begin{wrapfigure}{r}{0.5\textwidth}
-    \begin{center}
-        \includegraphics[width=0.5\textwidth]{GCPEquipment}
-        \caption{The equipment used to survey in Ground Control Points.}
-        \label{img:gcp-equipment}
-    \end{center}
-\end{wrapfigure}
