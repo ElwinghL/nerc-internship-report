@@ -1,7 +1,9 @@
 LATEX=pdflatex
 LATEXOPT=-shell-escape -interaction=nonstopmode
+
 LATEXMK=latexmk
-LATEXMKOPT=-pvc -pdf
+LATEXMKOPT=-pdf
+CONTINUOUS=-pvc
 
 MAIN=main
 SOURCES=$(MAIN).tex Makefile preamble.tex sections/* appendices/*
@@ -13,7 +15,8 @@ all:	$(MAIN).pdf
 	touch .refresh
 
 $(MAIN).pdf: $(MAIN).tex .refresh $(SOURCES) $(FIGURES)
-	$(LATEXMK) $(LATEXMKOPT) -pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN).tex
+	$(LATEXMK) $(LATEXMKOPT) $(CONTINUOUS) \
+		-pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN).tex
 
 force:
 	touch .refresh
@@ -26,6 +29,6 @@ clean:
 	rm -f *.bbl *.blg *.aux *.end *.fls *.log *.out *.fdb_latexmk
 
 once:
-	$(LATEX) $(LATEXOPT) $(MAIN)
+	$(LATEXMK) $(LATEXMKOPT) -pdflatex="$(LATEX) $(LATEXOPT) %O %S" $(MAIN).tex
 
 .PHONY: clean force once all
